@@ -1,0 +1,47 @@
+﻿@model CookBook.Models.Recipe
+
+<div class="container mt-4">
+    <div class="d-grid mb-4">
+        <button class="btn btn-outline-secondary" type="button" onclick="window.location.href='@Url.Action("Index", "Home")'">Back to Home</button>
+    </div>
+    <div class="row">
+        <div class="col-16">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img src="@Model.User?.ProfilePicUrl" class="rounded-circle mr-2" alt="@Model.User?.Username" style="width:30px; height:30px;">&nbsp;
+                        <span>@Model.User?.Username</span>
+                    </div>
+                    <div>
+                        <span>@Model.CreatedAt?.ToString("MMMM dd, yyyy")</span>
+                        <span>@Model.CreatedAt?.ToString("hh:mm tt")</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Title</h5>
+                    <p class="card-text">@Model.Description</p>
+                </div>
+                @if (Model.Media.Count() > 0)
+                {
+                    <div class="card-body p-0">
+                        @foreach (var media in Model.Media)
+                        {
+                            <hr class="m-0">
+                            @if (media.MediaType == "image")
+                            {
+                                <img src="@Url.Content(media.MediaUrl)" class="card-img-top img-fluid p-2" alt="@media.Recipe?.Title">
+                            }
+                            @if (media.MediaType == "video")
+                            {
+                                <video controls class="img-fluid w-100 p-2">
+                                    <source src="@Url.Content(media.MediaUrl)" type="video/mp4">
+                                </video>
+                            }
+
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

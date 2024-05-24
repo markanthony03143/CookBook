@@ -1,0 +1,33 @@
+﻿@model CookBook.Models.Recipe
+
+<div class="container mt-4">
+    <div class="d-grid mb-4">
+        <button class="btn btn-outline-secondary" type="button" onclick="window.location.href='@Url.Action("Index", "Home")'">Back to Home</button>
+    </div>
+    <div class="row">
+        <div class="col-16">
+            <form asp-action="PostRecipe" method="post" enctype="multipart/form-data" class="border p-4">
+                <div class="mb-2">
+                    <h3 class="d-flex justify-content-center m-0">PostRecipe</h3>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label"></label>
+                    <input asp-for="Title" class="form-control" type="text">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description" class="form-control" type="text" style="height: 200px; resize: none;"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="mediaFiles" class="form-label">Upload Images/Videos</label><br>
+                    <input class="form-control" type="file" id="mediaFiles" name="mediaFiles" accept=".jpg, .jpeg, .png, .mp4" multiple>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-secondary">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

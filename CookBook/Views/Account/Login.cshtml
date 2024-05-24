@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_AccountLayout";
+}
+@model CookBook.Models.User
+
+<div class="container w-50">
+    <form asp-action="Login" method="post" class="border p-4">
+        <div class="mb-2">
+            <h3 class="d-flex justify-content-center m-0">Login</h3>
+        </div>
+        @if (ViewBag.Message == "Successfully Registered")
+        {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.Message
+            </div>
+        }
+        @if (ViewBag.Message == "Invalid email or password")
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.Message
+            </div>
+        }
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" type="email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control" type="password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-secondary">Login</button>
+        </div>
+    </form>
+</div>

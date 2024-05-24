@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CookBook.Models.Recipe>
+
+<div class="container mt-4">
+    <div class="row">
+        @foreach (var recipe in Model)
+        {
+            <div class="col-16">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img src="@recipe.User?.ProfilePicUrl" class="rounded-circle mr-2" alt="@recipe.User?.Username" style="width:30px; height:30px;">&nbsp;
+                            <span>@recipe.User?.Username</span>
+                        </div>
+                        <div>
+                            <span>@recipe.CreatedAt?.ToString("MMMM dd, yyyy")</span>
+                            <span>@recipe.CreatedAt?.ToString("hh:mm tt")</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@recipe.Title</h5>
+                        <p class="card-text">@recipe.Description</p>
+                    </div>
+                    @if (recipe.Media.Count() > 0)
+                    {
+                        <div class="card-body p-0">
+
+                            <div class="image-gallery" data-count="@recipe.Media.Count()" onclick="window.location.href='@Url.Action("ViewRecipe", "MyRecipe", new { recipeId = recipe.RecipeId })'">
+                                @foreach (var media in recipe.Media.Take(2))
+                                {
+                                    @if (media.MediaType == "image")
+                                    {
+                                        <img src="@Url.Content(media.MediaUrl)" class="card-img-top img-fluid" alt="@media.Recipe?.Title">
+                                    }
+                                    @if (media.MediaType == "video")
+                                    {
+                                        <video controls class="img-fluid">
+                                            <source src="@Url.Content(media.MediaUrl)" type="video/mp4">
+                                        </video>
+                                    }
+
+                                }
+                                @if (recipe.Media.Count() > 2)
+                                {
+                                    <div class="more-images-overlay" data-bs-toggle="modal" data-bs-target="#carouselModal-@recipe.RecipeId">
+                                        +@((recipe.Media.Count() - 2).ToString())
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
